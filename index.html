@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Geonotes</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+		<link rel="stylesheet" href="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.min.css">
+		<link rel="stylesheet" href="http://leaflet.cloudmade.com/dist/leaflet.css">
+
+		<style>
+			#mapControlContainer,
+			#mapControl {
+				height: 400px;
+				width: 100%;
+				padding: 0; margin: 0;
+			}
+		</style>
+
+		<script src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
+		<script src="http://code.jquery.com/mobile/1.0/jquery.mobile-1.0.js"></script>
+		<script src="http://leaflet.cloudmade.com/dist/leaflet.js"></script>
+
+		<script>
+			resizeContentArea = function() {
+				var content, contentHeight, footer, header, viewportHeight;
+				window.scroll(0, 0);
+				header = $(":jqmData(role='header'):visible");
+				footer = $(":jqmData(role='footer'):visible");
+				content = $(":jqmData(role='content'):visible");
+				viewportHeight = $(window).height();
+				contentHeight = viewportHeight - header.outerHeight() - footer.outerHeight();
+				$("article:jqmData(role='content')").first().height(contentHeight);
+				return $("#mapControl").height(contentHeight);
+			};
+			$(window).bind('orientationchange pageshow resize', resizeContentArea);
+
+			$(document).bind('pageinit', function() {
+				if (!window.mapCtrl) {
+					tileUrl = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+					attribution = 'Map data © OpenStreetMap contributors';
+					tileLayer = new L.TileLayer(tileUrl, {
+						maxZoom: 18,
+						attribution: attribution
+					});
+					map = new L.Map('mapControl');
+					map.addLayer(tileLayer);
+					map.on('locationerror', function(e) {
+						alert(e.message);
+						return map.fitWorld();
+					});
+					map.locateAndSetView(16);
+					return window.mapCtrl = map;
+				}
+			});
+
+			function addNote() {
+			  var m, note;
+				note = $('#add-textarea').val();
+				m = new L.Marker();
+				m.setLatLng(window.mapCtrl.getCenter());
+				m.bindPopup(note);
+				window.mapCtrl.addLayer(m);
+				$.mobile.changePage($('#home'), {
+					'reloadPage': false
+				});
+				return false;
+			}
+		</script>
+	</head>
+	<body>
+
+		<section data-role="page" id="home">
+			<header data-role="header">
+				<a href="#add" data-rel="dialog" data-transition="flip">add note</a>
+				<h1>hello world</h1>
+				<a href="" >another button</a>
+			</header>
+			<article data-role="content" id="mapControlContainer">
+				<div id="mapControl"></div>
+			</article>
+		</section>
+
+		<section data-role="page" id="add">
+			<article data-role="header" data-theme="c">
+				<h1>add a note</h1>
+			</article>
+			<article data-role="content">
+				<form data-ajax="false" onsubmit="addNote(); return false;">
+					<textarea id="add-textarea" placeholder="Your note goes here"></textarea>
+					<a href="#" onclick="window.history.back(); return false;" data-role="button">go back</a>
+					<input type="submit" value="add a note">
+				</form>
+
+			</article>
+		</section>
+	</body>
+</html>
