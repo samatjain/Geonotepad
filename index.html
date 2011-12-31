@@ -20,6 +20,11 @@
 		<script src="http://leaflet.cloudmade.com/dist/leaflet.js"></script>
 
 		<script>
+			relocate = function() {
+				window.mapCtrl.locateAndSetView(16);
+				return false;
+			}
+
 			resizeContentArea = function() {
 				var content, contentHeight, footer, header, viewportHeight;
 				window.scroll(0, 0);
@@ -72,7 +77,7 @@
 			<header data-role="header">
 				<a href="#add" data-rel="dialog" data-transition="flip">add note</a>
 				<h1>hello world</h1>
-				<a href="" >another button</a>
+				<a href="#" onclick='relocate();'>locate me</a>
 			</header>
 			<article data-role="content" id="mapControlContainer">
 				<div id="mapControl"></div>
