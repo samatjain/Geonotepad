@@ -40,8 +40,8 @@
 
 			$(document).bind('pageinit', function() {
 				if (!window.mapCtrl) {
-					tileUrl = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
-					attribution = 'Map data © OpenStreetMap contributors';
+					tileUrl = 'http://otile1.mqcdn.com/tiles/1.0.0/osm/{z}/{x}/{y}.jpg';
+					attribution = 'Map data © MapQuest, OpenStreetMap contributors';
 					tileLayer = new L.TileLayer(tileUrl, {
 						maxZoom: 18,
 						attribution: attribution
