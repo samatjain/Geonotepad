@@ -75,9 +75,9 @@
 
 		<section data-role="page" id="home">
 			<header data-role="header">
-				<a href="#add" data-rel="dialog" data-transition="flip">add note</a>
-				<h1>hello world</h1>
-				<a href="#" onclick='relocate();'>locate me</a>
+				<a href="#add" data-rel="dialog" data-transition="flip">Add note</a>
+				<h1>Geonotepad</h1>
+				<a href="#" onclick='relocate();'>Locate me</a>
 			</header>
 			<article data-role="content" id="mapControlContainer">
 				<div id="mapControl"></div>
@@ -86,13 +86,13 @@
 
 		<section data-role="page" id="add">
 			<article data-role="header" data-theme="c">
-				<h1>add a note</h1>
+				<h1>Add note</h1>
 			</article>
 			<article data-role="content">
 				<form data-ajax="false" onsubmit="addNote(); return false;">
-					<textarea id="add-textarea" placeholder="Your note goes here"></textarea>
+					<textarea id="add-textarea" placeholder="Type your note here"></textarea>
 					<a href="#" onclick="window.history.back(); return false;" data-role="button">go back</a>
-					<input type="submit" value="add a note">
+					<input type="submit" value="Add">
 				</form>
 
 			</article>
